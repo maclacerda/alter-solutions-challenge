@@ -6,33 +6,35 @@
 //
 
 import UIKit
+import AlterSolutionsChallengeCore
 
 class AppCoordinator: Coordinator {
     
     // MARK: - Properties
     
-    // TODO: add to inject here
-    let pokemonListCoordinator: PokemonListCoordinator
-    let window: UIWindow
-    let rootViewController: UINavigationController
+    @DependencyInject
+    var pokemonListCoordinator: PokemonListCoordinatorProtocol
     
-    internal var childCoordinators: [String : Coordinator] = [:]
+    let window: UIWindow
+    let rootViewController: BaseNavigationViewController
+    
+    internal var childCoordinators: [String: Coordinator] = [:]
     
     // MARK: - Initializer
     
     init(window: UIWindow) {
         self.window = window
         
-        rootViewController = UINavigationController()
+        rootViewController = BaseNavigationViewController()
         rootViewController.navigationBar.prefersLargeTitles = true
         
-        pokemonListCoordinator = PokemonListCoordinator(presenter: rootViewController)
+        self.window.rootViewController = rootViewController
     }
 
     // MARK: - Flows
     
     func start() {
-        window.rootViewController = rootViewController
+        pokemonListCoordinator.presenter = rootViewController
         pokemonListCoordinator.start()
         
         window.makeKeyAndVisible()

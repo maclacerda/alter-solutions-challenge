@@ -10,6 +10,6 @@ import UIKit
 protocol ScenesFactoryProtocol: AnyObject {
     
     func makePokemonList() -> PokemonListViewController
-    func makePokemonDetail(with pokemon: Pokemon) -> PokemonDetailViewController
+    func makePokemonDetail(with pokemon: PokemonDetail) -> PokemonDetailViewController
     
 }

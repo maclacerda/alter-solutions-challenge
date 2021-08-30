@@ -14,7 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private lazy var appCoordinator: Coordinator? = makeAppCoordinator()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Register aplication dependencies in container
+        AlterSolutionsChallengeAppDependencies.registerDependencies()
+        
+        // Setup Initial Scene
         setupApplication()
+        
         return true
     }
 
@@ -22,14 +27,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 // MARK: - Helpers
 
-private extension AppDelegate {
+extension UIApplication {
     
-    var rootController: UINavigationController {
+    var appdelegate: AppDelegate {
         // swiftlint:disable force_cast
-        return window!.rootViewController as! UINavigationController
+        return self.delegate! as! AppDelegate
     }
     
-    func setupApplication() {
+}
+
+extension AppDelegate {
+    
+    var rootController: BaseNavigationViewController {
+        // swiftlint:disable force_cast
+        return window!.rootViewController as! BaseNavigationViewController
+    }
+    
+    private func setupApplication() {
         UIView.setAnimationsEnabled(!isRunningUITests)
 
         if isRunningUnitTests && !isRunningUITests {

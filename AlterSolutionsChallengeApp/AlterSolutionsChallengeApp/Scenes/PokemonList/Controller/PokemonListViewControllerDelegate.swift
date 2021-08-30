@@ -9,6 +9,6 @@ import Foundation
 
 protocol PokemonListViewControllerDelegate: AnyObject {
     
-    func didSelectPokemon(_ pokemon: Pokemon)
+    func didSelectPokemon(_ pokemon: PokemonDetail)
     
 }

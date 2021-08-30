@@ -24,10 +24,18 @@
                                     <constraint firstAttribute="height" constant="200" id="sAe-bW-1OT"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PokeBook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dng-OW-U1e">
+                                <rect key="frame" x="121" y="564" width="172" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="dng-OW-U1e" firstAttribute="centerX" secondItem="YdB-EY-lNe" secondAttribute="centerX" id="JMv-cS-wrg"/>
+                            <constraint firstItem="dng-OW-U1e" firstAttribute="top" secondItem="YdB-EY-lNe" secondAttribute="bottom" constant="16" id="PO7-vn-8yC"/>
                             <constraint firstItem="YdB-EY-lNe" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="mjg-Cs-qQT"/>
                             <constraint firstItem="YdB-EY-lNe" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="rze-uB-wNn"/>
                         </constraints>

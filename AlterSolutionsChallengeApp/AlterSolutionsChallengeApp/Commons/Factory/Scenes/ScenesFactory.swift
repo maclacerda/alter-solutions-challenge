@@ -13,12 +13,20 @@ final class ScenesFactory: ScenesFactoryProtocol {
     
     func makePokemonList() -> PokemonListViewController {
         let viewController = PokemonListViewController()
+        let viewModel = PokemonListViewModel()
+        
+        viewController.viewModel = viewModel
+        viewModel.delegate = viewController
         
         return viewController
     }
     
-    func makePokemonDetail(with pokemon: Pokemon) -> PokemonDetailViewController {
+    func makePokemonDetail(with pokemon: PokemonDetail) -> PokemonDetailViewController {
         let viewController = PokemonDetailViewController()
+        let viewModel = PokemonDetailViewModel(with: pokemon)
+        
+        viewController.viewModel = viewModel
+        viewModel.delegate = viewController
         
         return viewController
     }

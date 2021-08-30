@@ -9,4 +9,9 @@ import Foundation
 
 struct Pokemon {
     
+    let name: String
+    let photo: String
+    
+    var isFaved: Bool
+    
 }

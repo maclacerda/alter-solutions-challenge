@@ -6,31 +6,37 @@
 //
 
 import UIKit
+import AlterSolutionsChallengeCore
 
-final class PokemonDetailCoordinator: Coordinator {
-    
-    // ADD @Inject
-    private var factory: ScenesFactoryProtocol {
-        return ScenesFactory()
-    }
+protocol PokemonDetailCoordinatorProtocol: Coordinator {
+    var presenter: BaseNavigationViewController? { get set }
+    var pokemon: PokemonDetail? { get set }
+}
+
+final class PokemonDetailCoordinator: PokemonDetailCoordinatorProtocol {
     
     // MARK: - Properties
     
-    private let presenter: UINavigationController
-    private let pokemon: Pokemon
+    var presenter: BaseNavigationViewController?
+    var pokemon: PokemonDetail?
+    
+    @DependencyInject
+    private var factory: ScenesFactoryProtocol
     
     // MARK: - Initializer
     
-    init(presenter: UINavigationController, pokemon: Pokemon) {
-        self.presenter = presenter
-        self.pokemon = pokemon
-    }
+    init() {}
     
     func start() {
+        guard let pokemon = self.pokemon else {
+            preconditionFailure("Pokemon not be nil.")
+        }
+        
         let viewController = factory.makePokemonDetail(with: pokemon)
+        
         viewController.delegate = self
         
-        presenter.pushViewController(viewController, animated: true)
+        presenter?.pushViewController(viewController, animated: true)
     }
     
 }
