@@ -66,10 +66,18 @@ struct AlterSolutionsChallengeAppDependencies {
             return DetailUseCase()
         }
         
+        try container.register(type: PokemonFavedListServiceProtocol.self) {
+            return PokemonFavedListService()
+        }
+        
         // Services
         
         try container.register(type: PokemonListServiceProtocol.self) {
             return PokemonListService()
+        }
+        
+        try container.register(type: PokemonDetailServiceProtocol.self) {
+            return PokemonDetailService()
         }
     }
     

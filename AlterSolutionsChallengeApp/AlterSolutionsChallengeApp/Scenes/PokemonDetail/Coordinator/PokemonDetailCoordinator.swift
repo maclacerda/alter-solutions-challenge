@@ -44,5 +44,9 @@ final class PokemonDetailCoordinator: PokemonDetailCoordinatorProtocol {
 // MARK: - PokemonDetailViewControllerDelegate
 
 extension PokemonDetailCoordinator: PokemonDetailViewControllerDelegate {
-    
+
+    func didNotifyFavedUnFavedPokemon() {
+        NotificationCenter.default.post(name: .pokemonDataModified, object: nil, userInfo: nil)
+    }
+
 }

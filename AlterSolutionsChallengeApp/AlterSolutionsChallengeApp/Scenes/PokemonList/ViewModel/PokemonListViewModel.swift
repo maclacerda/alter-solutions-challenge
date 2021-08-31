@@ -33,6 +33,9 @@ final class PokemonListViewModel {
     
     @DependencyInject
     private var services: ListUseCaseProtocol
+    
+    @DependencyInject
+    private var favedServices: PokemonFavedListServiceProtocol
 
     // MARK: - API Calls
     
@@ -57,14 +60,14 @@ final class PokemonListViewModel {
     }
     
     func loadFavedPokemons() {
-        favedPokemons = pokemons.filter { $0.isFaved }
+        favedPokemons = favedServices.execute()
         
         guard !favedPokemons.isEmpty else {
             viewState.onNext(.empty("No faved Pokemons found, please faved one and try again."))
             return
         }
         
-        self.viewState.onNext(.loaded)
+        viewState.onNext(.loaded)
     }
     
     func shouldLoadMoreData(with index: Int) {
@@ -105,33 +108,7 @@ final class PokemonListViewModel {
     }
     
     private func makePokemonDetailData(with pokemon: Pokemon) -> PokemonDetail {
-        return PokemonDetail(
-            pokemon: pokemon,
-            initialExperience: 64,
-            height: 7,
-            weight: 69,
-            abilities: [
-                PokemonAbilities(slot: 1, name: "overgrow"),
-                PokemonAbilities(slot: 3, name: "chlorophyll")
-            ],
-            moves: [
-                PokemonMoves(name: "razor-wind"),
-                PokemonMoves(name: "swords-dance"),
-                PokemonMoves(name: "cut"),
-                PokemonMoves(name: "bind"),
-                PokemonMoves(name: "vine-whip")
-            ],
-            stats: [
-                PokemonStats(baseStat: 45, name: "hp"),
-                PokemonStats(baseStat: 49, name: "attack"),
-                PokemonStats(baseStat: 49, name: "defense"),
-                PokemonStats(baseStat: 65, name: "special-attack")
-            ],
-            types: [
-                PokemonDetailTypes(slot: 1, name: "grass"),
-                PokemonDetailTypes(slot: 2, name: "poison")
-            ]
-        )
+        return PokemonDetail(pokemon: pokemon)
     }
     
 }

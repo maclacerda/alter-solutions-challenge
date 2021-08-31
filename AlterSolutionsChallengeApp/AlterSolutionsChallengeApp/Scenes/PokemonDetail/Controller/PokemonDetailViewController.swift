@@ -15,7 +15,9 @@ class PokemonDetailViewController: BaseViewController, ViewCodeProtocol {
     
     private var viewState: ViewState = .loading {
         didSet {
-            updateView()
+            DispatchQueue.main.async { [weak self] in
+                self?.updateView()
+            }
         }
     }
     
@@ -66,7 +68,7 @@ class PokemonDetailViewController: BaseViewController, ViewCodeProtocol {
     }()
     
     private lazy var detailView: PokemonDetailDescritionView = {
-        let detailView = PokemonDetailDescritionView(with: viewModel.pokemon)
+        let detailView = PokemonDetailDescritionView()
         
         detailView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -164,22 +166,23 @@ class PokemonDetailViewController: BaseViewController, ViewCodeProtocol {
             }
             
         case .loaded:
+            detailView.pokemon = viewModel.pokemonDetail
             scrollView.isHidden = false
             
             loadingView.stopAnimating()
             stateView.isHidden = true
             
         case .loading:
-            loadingView.isHidden = false
-            loadingView.startAnimating()
-            
             scrollView.isHidden = true
             stateView.isHidden = true
+            
+            loadingView.isHidden = false
+            loadingView.startAnimating()
         }
     }
     
     private func handlerFavorites() {
-        addCustomNavigationButton(on: .right, icon: viewModel.pokemon.isFaved ? .favorites : .list, tintColor: .systemYellow, action: self)
+        addCustomNavigationButton(on: .right, icon: viewModel.pokemonDetail.isFaved ? .favorites : .list, tintColor: .systemYellow, action: self)
     }
     
     private func addPokemonToFavorites() {
@@ -195,11 +198,16 @@ class PokemonDetailViewController: BaseViewController, ViewCodeProtocol {
 extension PokemonDetailViewController: CustomButtonActionDelegate {
     
     func didTapCustomNavigationButton() {
-        viewModel.pokemon.isFaved = !viewModel.pokemon.isFaved
+        viewModel.pokemonDetail.isFaved = !viewModel.pokemonDetail.isFaved
+        viewModel.notifyPokemonChanged()
     }
     
 }
 
 extension PokemonDetailViewController: PokemonDetailViewModelDelegate {
-    
+
+    func didNotifyFavedUnFavedPokemon() {
+        delegate?.didNotifyFavedUnFavedPokemon()
+    }
+
 }

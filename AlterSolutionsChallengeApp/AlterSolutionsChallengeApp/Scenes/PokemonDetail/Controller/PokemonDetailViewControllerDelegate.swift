@@ -8,5 +8,7 @@
 import Foundation
 
 protocol PokemonDetailViewControllerDelegate: AnyObject {
-    
+
+    func didNotifyFavedUnFavedPokemon()
+
 }

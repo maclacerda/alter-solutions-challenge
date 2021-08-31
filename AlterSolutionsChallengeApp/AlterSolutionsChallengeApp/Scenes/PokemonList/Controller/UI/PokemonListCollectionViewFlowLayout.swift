@@ -23,7 +23,12 @@ final class PokemonListCollectionViewFlowLayout {
         group.interItemSpacing = .fixed(Metrics.listItemSpacing)
 
         let section = NSCollectionLayoutSection(group: group)
-        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
+        
+        let footer = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: footerSize,
+            elementKind: UICollectionView.elementKindSectionFooter,
+            alignment: .bottom
+        )
         
         section.contentInsets = Metrics.listContentInsets
         section.interGroupSpacing = Metrics.defaultMargin

@@ -13,11 +13,16 @@ final class PokemonDetailDescritionView: UIView, ViewCodeProtocol {
     
     // MARK: - Properties
     
-    private let pokemon: PokemonDetail
     private let disposeBag = DisposeBag()
     
     @DependencyInject
     private var imageDownloader: ImageDownloaderProtocol
+    
+    var pokemon: PokemonDetail? {
+        didSet {
+            setupPokemonInfo()
+        }
+    }
     
     // MARK: - UI
     
@@ -101,12 +106,9 @@ final class PokemonDetailDescritionView: UIView, ViewCodeProtocol {
     
     // MARK: - Initializer
     
-    init(with pokemon: PokemonDetail) {
-        self.pokemon = pokemon
-        
+    init() {
         super.init(frame: .zero)
         setupView()
-        setupPokemonInfo()
     }
     
     required init?(coder: NSCoder) {
@@ -176,14 +178,19 @@ final class PokemonDetailDescritionView: UIView, ViewCodeProtocol {
     // MARK: - Private methods
     
     private func setupPokemonInfo() {
+        guard let pokemon = self.pokemon,
+              let specs = pokemon.specs else {
+            return
+        }
+        
         nameLabel.text = pokemon.name
         
         // Make lists
-        makeGeneralInfo()
-        makeAbilities()
-        makeMoves()
-        makeStats()
-        makeTypes()
+        makeGeneralInfo(specs)
+        makeAbilities(specs)
+        makeMoves(specs)
+        makeStats(specs)
+        makeTypes(specs)
         
         guard let photoURL = URL(string: pokemon.photo) else { return }
         let observable = imageDownloader.download(with: photoURL)
@@ -191,20 +198,20 @@ final class PokemonDetailDescritionView: UIView, ViewCodeProtocol {
         bindObservable(with: observable)
     }
     
-    private func makeGeneralInfo() {
+    private func makeGeneralInfo(_ specs: PokemonSpecs) {
         let infos = [
-            ListableDataViewData(key: "Initial Experience", value: "\(pokemon.initialExperience)"),
-            ListableDataViewData(key: "Height", value: "\(pokemon.height)"),
-            ListableDataViewData(key: "Weight", value: "\(pokemon.weight)")
+            ListableDataViewData(key: "Initial Experience", value: "\(specs.initialExperience)"),
+            ListableDataViewData(key: "Height", value: "\(specs.height)"),
+            ListableDataViewData(key: "Weight", value: "\(specs.weight)")
         ]
         
         generalDataView.bindViews(with: infos)
     }
     
-    private func makeAbilities() {
-        let abilities = pokemon.abilities.map {
+    private func makeAbilities(_ specs: PokemonSpecs) {
+        let abilities = specs.abilities.map {
             ListableDataViewData(
-                key: "Name / Slot",
+                key: "Ability name / Slot",
                 value: String(format: "%@ / %i", $0.name, $0.slot)
             )
         }
@@ -212,18 +219,18 @@ final class PokemonDetailDescritionView: UIView, ViewCodeProtocol {
         abilitiesDataView.bindViews(with: abilities)
     }
     
-    private func makeMoves() {
-        let moves = pokemon.moves.map {
-            ListableDataViewData(key: "Name", value: $0.name)
+    private func makeMoves(_ specs: PokemonSpecs) {
+        let moves = specs.moves.map {
+            ListableDataViewData(key: "Move name", value: $0.name)
         }
         
         movesDataView.bindViews(with: moves)
     }
     
-    private func makeStats() {
-        let stats = pokemon.stats.map {
+    private func makeStats(_ specs: PokemonSpecs) {
+        let stats = specs.stats.map {
             ListableDataViewData(
-                key: "Name / Base Stat",
+                key: "Stat name / Base Stat",
                 value: String(format: "%@ / %i", $0.name, $0.baseStat)
             )
         }
@@ -231,10 +238,10 @@ final class PokemonDetailDescritionView: UIView, ViewCodeProtocol {
         statsDataView.bindViews(with: stats)
     }
     
-    private func makeTypes() {
-        let types = pokemon.types.map {
+    private func makeTypes(_ specs: PokemonSpecs) {
+        let types = specs.types.map {
             ListableDataViewData(
-                key: "Name / Slot",
+                key: "Type name / Slot",
                 value: String(format: "%@ / %i", $0.name, $0.slot)
             )
         }

@@ -129,6 +129,8 @@ class PokemonListViewController: BaseViewController, ViewCodeProtocol {
         viewModel.viewState.subscribe(onNext: { [weak self] state in
             self?.viewState = state
         }).disposed(by: disposeBag)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didHandlerNotificaation(_:)), name: .pokemonDataModified, object: nil)
     }
     
     private func updateView() {
@@ -171,6 +173,12 @@ class PokemonListViewController: BaseViewController, ViewCodeProtocol {
     private func showPokemons() {
         fetchPokemons()
         handlerFavorites()
+    }
+    
+    @objc private func didHandlerNotificaation(_ notification: Notification) {
+        // If user not in faved list the reload isn't executed
+        guard viewModel.shouldShowFavorites else { return }
+        fetchPokemons()
     }
     
 }
