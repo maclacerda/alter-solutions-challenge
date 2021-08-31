@@ -103,7 +103,7 @@ class PokemonDetailViewController: BaseViewController, ViewCodeProtocol {
             stateView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             stateView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Metrics.defaultMargin),
             stateView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Metrics.defaultMargin),
-            stateView.heightAnchor.constraint(equalToConstant: 240),
+            stateView.heightAnchor.constraint(equalToConstant: Metrics.stateViewHeight),
             
             scrollView.topAnchor.constraint(equalTo: view.safeTopAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

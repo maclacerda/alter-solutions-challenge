@@ -15,7 +15,9 @@ class PokemonListViewController: BaseViewController, ViewCodeProtocol {
     
     private var viewState: ViewState = .loading {
         didSet {
-            updateView()
+            DispatchQueue.main.async { [weak self] in
+                self?.updateView()
+            }
         }
     }
     
@@ -25,6 +27,8 @@ class PokemonListViewController: BaseViewController, ViewCodeProtocol {
     weak var delegate: PokemonListViewControllerDelegate?
     
     // MARK: - UI
+    
+    private weak var footerView: LoadingFooterView?
     
     private lazy var loadingView: UIActivityIndicatorView = {
         let loadingView = UIActivityIndicatorView(style: .large)
@@ -46,7 +50,7 @@ class PokemonListViewController: BaseViewController, ViewCodeProtocol {
     private lazy var collectionView: UICollectionView = {
         let flowLayout = PokemonListCollectionViewFlowLayout.initialize()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        
+
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isHidden = true
         
@@ -85,7 +89,7 @@ class PokemonListViewController: BaseViewController, ViewCodeProtocol {
             stateView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             stateView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Metrics.defaultMargin),
             stateView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Metrics.defaultMargin),
-            stateView.heightAnchor.constraint(equalToConstant: 240)
+            stateView.heightAnchor.constraint(equalToConstant: Metrics.stateViewHeight)
         ])
     }
     
@@ -101,19 +105,24 @@ class PokemonListViewController: BaseViewController, ViewCodeProtocol {
         
         // CollectionView
         collectionView.backgroundColor = .white
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(PokemonListCell.self, forCellWithReuseIdentifier: PokemonListCell.identifier)
-        
+        collectionView.register(LoadingFooterView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                                withReuseIdentifier: LoadingFooterView.identifier)
+
         // Add Favorites List Button
         handlerFavorites()
     }
-    
+     
     // MARK: - Private methods
     
-    private func fetchPokemons(_ inPullToRefresh: Bool = false) {
+    private func fetchPokemons() {
         viewState = .loading
-        viewModel.shouldShowFavorites ? viewModel.loadFavedPokemons() : viewModel.loadPokemons(inPullToRefresh)
+        viewModel.shouldShowFavorites ? viewModel.loadFavedPokemons() : viewModel.loadPokemons()
     }
     
     private func setupSubscribers() {
@@ -209,4 +218,39 @@ extension PokemonListViewController: UICollectionViewDataSource, UICollectionVie
         viewModel.showDetailsForPokemon(with: indexPath.row)
     }
     
+    // swiftlint:disable line_length
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard !viewModel.shouldShowFavorites,
+              kind == UICollectionView.elementKindSectionFooter,
+              let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: LoadingFooterView.identifier, for: indexPath) as? LoadingFooterView else {
+            return UICollectionReusableView()
+        }
+        
+        self.footerView = footerView
+
+        return footerView
+    }
+    // swiftlint:enable line_length
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        guard !viewModel.shouldShowFavorites,
+              elementKind == UICollectionView.elementKindSectionFooter else { return }
+
+        footerView?.startLoading()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
+        guard !viewModel.shouldShowFavorites,
+              elementKind == UICollectionView.elementKindSectionFooter else { return }
+
+        footerView?.stopLoading()
+        footerView?.removeFromSuperview()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard !viewModel.shouldShowFavorites else { return }
+
+        viewModel.shouldLoadMoreData(with: indexPath.item)
+    }
+
 }

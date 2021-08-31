@@ -8,18 +8,26 @@
 import UIKit
 
 final class PokemonListCollectionViewFlowLayout {
-    
+
     class func initialize() -> UICollectionViewCompositionalLayout {
-        let size: NSCollectionLayoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(140))
+        let size: NSCollectionLayoutSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(Metrics.listItemFractionWidth),
+            heightDimension: .absolute(Metrics.listItemHeight)
+        )
+        
+        let footerSize: NSCollectionLayoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50.0))
+
         let item = NSCollectionLayoutItem(layoutSize: size)
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: PokemonListCollectionViewFlowLayout.itemsPerPage())
         
-        group.interItemSpacing = .fixed(5)
+        group.interItemSpacing = .fixed(Metrics.listItemSpacing)
 
         let section = NSCollectionLayoutSection(group: group)
+        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
         
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        section.contentInsets = Metrics.listContentInsets
         section.interGroupSpacing = Metrics.defaultMargin
+        section.boundarySupplementaryItems = [footer]
         
         return UICollectionViewCompositionalLayout(section: section)
     }

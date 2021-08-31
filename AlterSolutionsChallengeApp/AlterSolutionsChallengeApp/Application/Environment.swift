@@ -6,43 +6,18 @@
 //
 
 import Foundation
+import AlterSolutionsChallengeCore
 
-class Environment {
+enum Environment {
+
+    static var baseURL: URL {
+        SecurityManager.shared.salt = Constants.salt
+
+        let base = try? SecurityManager.shared.reveal(Constants.baseURL)
     
-    // MARK: Enums
-    enum EnvironmentType: String {
-        case dev
+        precondition(base != nil)
+
+        return URL(string: base!)!
     }
-    
-    // MARK: - Singleton
-    static let shared = Environment()
-    
-    // MARK: - Properties
-    var baseURL: String!
-    var spritesURL: String!
-    var runtimeEnvironment: EnvironmentType?
-    
-    // MARK: - Computed Properties
-    var currentRuntimeEnvironment: EnvironmentType? {
-        if let runtimeEnvironment = runtimeEnvironment {
-            return runtimeEnvironment
-        }
-        return .dev
-    }
-    
-    // MARK: - Lifecycle
-    required init() {
-        setup()
-    }
-    
-    // MARK: - Configuration
-    func setup() {
-        guard let runtimeEnvironment = currentRuntimeEnvironment else { return }
-        switch runtimeEnvironment {
-        case .dev:
-            self.baseURL = "https://pokeapi.co/api/v2/"
-            self.spritesURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/"
-        }
-    }
-    
+
 }

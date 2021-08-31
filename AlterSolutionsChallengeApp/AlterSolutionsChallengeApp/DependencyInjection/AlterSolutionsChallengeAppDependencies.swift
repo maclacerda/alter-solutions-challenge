@@ -39,6 +39,10 @@ struct AlterSolutionsChallengeAppDependencies {
         try container.register(type: ImageDownloaderProtocol.self) {
             return KingfisherImageDownloader()
         }
+        
+        try container.register(type: URLRequestDispatcherProtocol.self) {
+            return URLSessionDispatcher()
+        }
     }
     
     private static func registerInternalDependencies() throws {
@@ -60,6 +64,12 @@ struct AlterSolutionsChallengeAppDependencies {
         
         try container.register(type: DetailUseCaseProtocol.self) {
             return DetailUseCase()
+        }
+        
+        // Services
+        
+        try container.register(type: PokemonListServiceProtocol.self) {
+            return PokemonListService()
         }
     }
     

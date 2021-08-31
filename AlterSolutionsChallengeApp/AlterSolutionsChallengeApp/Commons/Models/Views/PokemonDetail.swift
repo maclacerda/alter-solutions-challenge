@@ -10,10 +10,7 @@ import Foundation
 struct PokemonDetail {
     
     // Commom Pokemon data
-    let name: String
-    let photo: String
-    
-    var isFaved: Bool
+    private(set) var pokemon: Pokemon
     
     // Specific detail data
     let initialExperience: Int
@@ -23,6 +20,25 @@ struct PokemonDetail {
     let moves: [PokemonMoves]
     let stats: [PokemonStats]
     let types: [PokemonDetailTypes]
+    
+    // Computed properties
+    var isFaved: Bool {
+        get {
+            return pokemon.isFaved
+        }
+        
+        set {
+            pokemon.isFaved = newValue
+        }
+    }
+    
+    var name: String {
+        return pokemon.name
+    }
+    
+    var photo: String {
+        return pokemon.photo
+    }
     
 }
 

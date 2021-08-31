@@ -21,7 +21,7 @@ final class PokemonListViewModel {
     
     private let disposeBag = DisposeBag()
     private(set) var offset: Int = 0
-    private(set) var limit: Int = 0
+    private let limit: Int = 20
     
     internal let viewState = PublishSubject<ViewState>()
     
@@ -29,35 +29,14 @@ final class PokemonListViewModel {
     var pokemons = [Pokemon]()
     var favedPokemons = [Pokemon]()
     var shouldShowFavorites: Bool = false
+    var isLoading: Bool = false
     
     @DependencyInject
     private var services: ListUseCaseProtocol
 
     // MARK: - API Calls
     
-    func loadPokemons(_ inPullToRefresh: Bool = false) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.pokemons.removeAll()
-            self.pokemons.append(contentsOf: [
-                Pokemon(name: "Bulbasaur", photo: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png", isFaved: false),
-                Pokemon(name: "Ivysaur", photo: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png", isFaved: false),
-                Pokemon(name: "Venusaur", photo: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png", isFaved: false),
-                Pokemon(name: "Charmander", photo: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png", isFaved: false),
-                Pokemon(name: "Charmeleon", photo: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png", isFaved: false),
-                Pokemon(name: "Charizard", photo: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png", isFaved: false)
-            ])
-            
-            self.viewState.onNext(.loaded)
-        }
-        
-        return
-        
-        offset = inPullToRefresh ? 0 : offset + limit
-        
-        if inPullToRefresh {
-            pokemons.removeAll()
-        }
-        
+    func loadPokemons() {
         services.execute(offset: offset, limit: limit)
             .subscribe(onNext: { [weak self] (result: Result<[PokemonResponse]?, ListUseCaseError>) in
                 switch result {
@@ -66,9 +45,11 @@ final class PokemonListViewModel {
                         self?.viewState.onNext(.empty("No Pokemons found, please try again."))
                         return
                     }
-                    
+
                     self?.makePokemonsData(with: response)
+                    self?.isLoading = false
                     self?.viewState.onNext(.loaded)
+
                 case .failure(let error):
                     self?.viewState.onNext(.error(error))
                 }
@@ -76,8 +57,24 @@ final class PokemonListViewModel {
     }
     
     func loadFavedPokemons() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.viewState.onNext(.loaded)
+        favedPokemons = pokemons.filter { $0.isFaved }
+        
+        guard !favedPokemons.isEmpty else {
+            viewState.onNext(.empty("No faved Pokemons found, please faved one and try again."))
+            return
+        }
+        
+        self.viewState.onNext(.loaded)
+    }
+    
+    func shouldLoadMoreData(with index: Int) {
+        guard !pokemons.isEmpty, index == pokemons.count - 1 && !isLoading else {
+            return
+        }
+        
+        // Apply the little delay to user see the loading more items indicator
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.performLoadMoreData()
         }
     }
     
@@ -90,18 +87,26 @@ final class PokemonListViewModel {
     
     // MARK: - Private methods
     
+    private func performLoadMoreData() {
+        isLoading = !isLoading
+        updateOffset()
+        loadPokemons()
+    }
+    
+    private func updateOffset() {
+        offset += limit
+    }
+    
     private func makePokemonsData(with response: [PokemonResponse]) {
         pokemons.append(contentsOf: response.map {
             // TODO: rever isFaved depois
-            return Pokemon(name: $0.name.capitalized, photo: $0.url.makeAvatarURL(), isFaved: false)
+            return Pokemon(name: $0.name.capitalized, photo: $0.url.extractPokemonIdentifier().makeAvatarURL(), isFaved: false)
         })
     }
     
     private func makePokemonDetailData(with pokemon: Pokemon) -> PokemonDetail {
         return PokemonDetail(
-            name: pokemon.name,
-            photo: pokemon.photo,
-            isFaved: pokemon.isFaved,
+            pokemon: pokemon,
             initialExperience: 64,
             height: 7,
             weight: 69,
