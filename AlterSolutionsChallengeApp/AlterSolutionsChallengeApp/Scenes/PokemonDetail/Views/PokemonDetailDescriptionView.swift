@@ -128,6 +128,10 @@ final class PokemonDetailDescritionView: UIView, ViewCodeProtocol {
     }
     
     func setupConstraints() {
+        let typesBottomConstraint = typesDataView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        
+        typesBottomConstraint.priority = .defaultLow
+        
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: topAnchor),
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -160,7 +164,8 @@ final class PokemonDetailDescritionView: UIView, ViewCodeProtocol {
             
             typesDataView.topAnchor.constraint(equalTo: statsDataView.bottomAnchor, constant: Metrics.defaultMargin),
             typesDataView.leadingAnchor.constraint(equalTo: statsDataView.leadingAnchor),
-            typesDataView.trailingAnchor.constraint(equalTo: statsDataView.trailingAnchor)
+            typesDataView.trailingAnchor.constraint(equalTo: statsDataView.trailingAnchor),
+            typesBottomConstraint
         ])
     }
     

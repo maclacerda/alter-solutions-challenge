@@ -96,10 +96,6 @@ class PokemonDetailViewController: BaseViewController, ViewCodeProtocol {
     }
     
     func setupConstraints() {
-        let contentViewHeightConstraint = contentView.heightAnchor.constraint(equalTo: view.heightAnchor)
-        
-        contentViewHeightConstraint.priority = .defaultLow
-        
         NSLayoutConstraint.activate([
             loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -119,12 +115,12 @@ class PokemonDetailViewController: BaseViewController, ViewCodeProtocol {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            contentViewHeightConstraint,
+            contentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor),
             
             detailView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Metrics.defaultMargin),
             detailView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             detailView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            detailView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            detailView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Metrics.defaultMargin)
         ])
     }
     
