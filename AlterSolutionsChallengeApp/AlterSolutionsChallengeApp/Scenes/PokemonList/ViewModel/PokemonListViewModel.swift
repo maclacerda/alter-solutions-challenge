@@ -35,6 +35,9 @@ final class PokemonListViewModel {
     private var services: ListUseCaseProtocol
     
     @DependencyInject
+    private var analytics: AnalyticsProtocol
+    
+    @DependencyInject
     private var favedServices: PokemonFavedListServiceProtocol
 
     // MARK: - API Calls
@@ -86,6 +89,18 @@ final class PokemonListViewModel {
         let pokemonDetail = makePokemonDetailData(with: pokemon)
         
         delegate?.showDetailsForPokemon(with: pokemonDetail)
+    }
+    
+    func updatePokemonFavedStatus(with index: Int, isFaved: Bool) {
+        var pokemon = pokemons[index]
+        pokemon.isFaved = isFaved
+    }
+    
+    func sendEvent(with index: Int) {
+        let pokemon = pokemons[index]
+        let parameters = pokemon.buildAnalyticsParams()
+
+        analytics.sendEvent(with: AnalyticEvents.pokemonDataChanged.rawValue, parameters: parameters)
     }
     
     // MARK: - Private methods

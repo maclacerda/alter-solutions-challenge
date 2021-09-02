@@ -9,11 +9,18 @@ import UIKit
 import RxSwift
 import AlterSolutionsChallengeCore
 
-class PokemonListCell: UICollectionViewCell, ViewCodeProtocol {
+protocol PokemonListCellDelegate: AnyObject {
+    func didTapFavedButton(_ isFaved: Bool, in index: Int)
+}
+
+final class PokemonListCell: UICollectionViewCell, ViewCodeProtocol {
     
     // MARK: - Properties
     
     static let identifier: String = "PokemonListCell"
+    
+    private var index: Int = -1
+    weak var delegate: PokemonListCellDelegate?
     
     private let disposeBag = DisposeBag()
     
@@ -116,10 +123,14 @@ class PokemonListCell: UICollectionViewCell, ViewCodeProtocol {
     
     // MARK: - Public API
     
-    func setup(with pokemon: Pokemon) {
+    func setup(with pokemon: Pokemon, and index: Int) {
+        self.index = index
+
         nameLabel.text = pokemon.name
         favedButton.isSelected = pokemon.isFaved
-        
+
+        self.accessibilityIdentifier = pokemon.name
+
         guard let photoURL = URL(string: pokemon.photo) else { return }
         let observable = imageDownloader.download(with: photoURL)
         
@@ -136,6 +147,7 @@ class PokemonListCell: UICollectionViewCell, ViewCodeProtocol {
     
     @objc private func didTapFavedButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        delegate?.didTapFavedButton(sender.isSelected, in: index)
     }
     
 }

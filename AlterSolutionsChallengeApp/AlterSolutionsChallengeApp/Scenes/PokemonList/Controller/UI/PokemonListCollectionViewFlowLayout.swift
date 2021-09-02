@@ -18,7 +18,7 @@ final class PokemonListCollectionViewFlowLayout {
         let footerSize: NSCollectionLayoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50.0))
 
         let item = NSCollectionLayoutItem(layoutSize: size)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: PokemonListCollectionViewFlowLayout.itemsPerPage())
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: PokemonListCollectionViewFlowLayout.itemsPerRow())
         
         group.interItemSpacing = .fixed(Metrics.listItemSpacing)
 
@@ -39,8 +39,8 @@ final class PokemonListCollectionViewFlowLayout {
     
     // MARK: - Private methods
     
-    private class func itemsPerPage() -> Int {
-        // TODO: add logic to use data sotre in userdefaults
+    private class func itemsPerRow() -> Int {
+        // Define number os elements show per row
         return 3
     }
 

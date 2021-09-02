@@ -34,6 +34,24 @@ struct PokemonDetail {
         return pokemon.photo
     }
     
+    // MARK: - Helpers
+    
+    func buildAnalyticsParams() -> [String: Any] {
+        let generalInfo: [String: Any] = pokemon.buildAnalyticsParams()
+
+        guard let specs = self.specs else {
+            return generalInfo
+        }
+
+        let specsInfo: [String: Any] = [
+            PokemonEventKeys.experience.rawValue: specs.initialExperience,
+            PokemonEventKeys.height.rawValue: specs.height,
+            PokemonEventKeys.weight.rawValue: specs.weight
+        ]
+
+        return generalInfo.merging(specsInfo) { $1 }
+    }
+
 }
 
 struct PokemonSpecs {

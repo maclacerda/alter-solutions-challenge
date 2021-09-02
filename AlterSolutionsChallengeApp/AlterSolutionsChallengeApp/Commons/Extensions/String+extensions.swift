@@ -68,5 +68,8 @@ extension String {
 
         return attributedString
     }
-    
+
+    func adjustEventNameIfNeeded() -> String {
+        return self.replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: "-", with: "_").lowercased()
+    }
 }

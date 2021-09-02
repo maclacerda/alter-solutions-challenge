@@ -130,6 +130,7 @@ class PokemonDetailViewController: BaseViewController, ViewCodeProtocol {
         // Main View
         title = "Details"
         view.backgroundColor = .white
+        view.accessibilityIdentifier = "detail.views.root"
         
         // Loader
         loadingView.color = .primaryColor
@@ -184,22 +185,19 @@ class PokemonDetailViewController: BaseViewController, ViewCodeProtocol {
     private func handlerFavorites() {
         addCustomNavigationButton(on: .right, icon: viewModel.pokemonDetail.isFaved ? .favorites : .list, tintColor: .systemYellow, action: self)
     }
-    
-    private func addPokemonToFavorites() {
-        handlerFavorites()
-    }
-    
-    private func removePokemonToFavorites() {
-        handlerFavorites()
-    }
-    
+
 }
 
 extension PokemonDetailViewController: CustomButtonActionDelegate {
     
     func didTapCustomNavigationButton() {
         viewModel.pokemonDetail.isFaved = !viewModel.pokemonDetail.isFaved
+        handlerFavorites()
+
         viewModel.notifyPokemonChanged()
+
+        // Register faved changed in analytics
+        viewModel.sendEvent()
     }
     
 }

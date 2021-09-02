@@ -52,38 +52,15 @@ class BaseViewController: UIViewController {
         
         customButon.setImage(UIImage(systemName: imageName), for: .normal)
         customButon.tintColor = tintColor
+        customButon.accessibilityIdentifier = "favorites"
+        customButon.isSelected = icon == .favorites
         
         let barButton = UIBarButtonItem(customView: customButon)
-        
+
         switch position {
         case .left: navigationItem.setLeftBarButton(barButton, animated: true)
         case .right: navigationItem.setRightBarButton(barButton, animated: true)
         }
     }
-    
-    // MARK: - Messages
-    
-//    func showQuestion(_ title: String = "Atenção", message: String, handler: ((UIAlertAction) -> Void)? = nil) {
-//        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//        let yesAction = UIAlertAction(title: "Sim", style: .destructive, handler: handler)
-//        let noAction = UIAlertAction(title: "Não", style: .cancel, handler: nil)
-//
-//        alertController.addAction(yesAction)
-//        alertController.addAction(noAction)
-//
-//        if let navigationController = self.navigationController {
-//            navigationController.present(alertController, animated: true, completion: nil)
-//        } else {
-//            self.present(alertController, animated: true, completion: nil)
-//        }
-//    }
-//
-//    func showError(_ message: String, _ field: UITextField?) {
-//        MessagesHelper.shared.show(with: "Ops!", message: message, type: .error, handler: {
-//            DispatchQueue.main.async {
-//                field?.becomeFirstResponder()
-//            }
-//        })
-//    }
-    
+
 }

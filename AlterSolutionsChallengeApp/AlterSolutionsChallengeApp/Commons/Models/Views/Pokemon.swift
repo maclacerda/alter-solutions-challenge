@@ -14,4 +14,14 @@ struct Pokemon {
     
     var isFaved: Bool
     
+    // MARK: - Helpers
+
+    func buildAnalyticsParams() -> [String: Any] {
+        return [
+            PokemonEventKeys.name.rawValue: self.name,
+            PokemonEventKeys.photo.rawValue: self.photo,
+            PokemonEventKeys.faved.rawValue: self.isFaved ? "yes" : "no"
+        ]
+    }
+
 }

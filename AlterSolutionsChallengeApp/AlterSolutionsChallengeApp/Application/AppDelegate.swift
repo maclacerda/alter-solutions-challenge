@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import Kingfisher
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private lazy var appCoordinator: Coordinator? = makeAppCoordinator()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Setup 3D-Party Libraries
+        FirebaseApp.configure()
+        
         // Register aplication dependencies in container
         AlterSolutionsChallengeAppDependencies.registerDependencies()
         
@@ -21,6 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupApplication()
         
         return true
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        // Clear image caches
+        KingfisherManager.shared.cache.clearMemoryCache()
+        KingfisherManager.shared.cache.clearDiskCache()
     }
 
 }

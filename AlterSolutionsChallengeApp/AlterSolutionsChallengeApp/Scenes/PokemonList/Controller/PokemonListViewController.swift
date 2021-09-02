@@ -97,6 +97,7 @@ class PokemonListViewController: BaseViewController, ViewCodeProtocol {
         // Main View
         title = "Pokemons"
         view.backgroundColor = .white
+        view.accessibilityIdentifier = "list.views.root"
         
         // Loader
         loadingView.color = .primaryColor
@@ -217,7 +218,9 @@ extension PokemonListViewController: UICollectionViewDataSource, UICollectionVie
         }
 
         let pokemon = viewModel.shouldShowFavorites ? viewModel.favedPokemons[indexPath.row] : viewModel.pokemons[indexPath.row]
-        cell.setup(with: pokemon)
+        
+        cell.setup(with: pokemon, and: indexPath.row)
+        cell.delegate = self
         
         return cell
     }
@@ -259,6 +262,17 @@ extension PokemonListViewController: UICollectionViewDataSource, UICollectionVie
         guard !viewModel.shouldShowFavorites else { return }
 
         viewModel.shouldLoadMoreData(with: indexPath.item)
+    }
+
+}
+
+extension PokemonListViewController: PokemonListCellDelegate {
+
+    func didTapFavedButton(_ isFaved: Bool, in index: Int) {
+        viewModel.updatePokemonFavedStatus(with: index, isFaved: isFaved)
+        
+        // Register faved changed in analytics
+        viewModel.sendEvent(with: index)
     }
 
 }

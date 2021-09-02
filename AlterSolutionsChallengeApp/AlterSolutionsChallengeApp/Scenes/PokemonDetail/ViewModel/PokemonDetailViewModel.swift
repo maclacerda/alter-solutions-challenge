@@ -29,13 +29,16 @@ final class PokemonDetailViewModel {
     @DependencyInject
     private var services: DetailUseCaseProtocol
     
+    @DependencyInject
+    private var analytics: AnalyticsProtocol
+    
     // MARK: - Initializer
     
     init(with pokemonDetail: PokemonDetail) {
         self.pokemonDetail = pokemonDetail
     }
 
-    // MARK: - API Calls
+    // MARK: - Public API
     
     func fetchPokemonDetail() {
         services.execute(with: pokemonDetail.name)
@@ -57,6 +60,11 @@ final class PokemonDetailViewModel {
     
     func notifyPokemonChanged() {
         delegate?.didNotifyFavedUnFavedPokemon()
+    }
+    
+    func sendEvent() {
+        let parameters = pokemonDetail.buildAnalyticsParams()
+        analytics.sendEvent(with: AnalyticEvents.pokemonDataChanged.rawValue, parameters: parameters)
     }
     
     // MARK: - Private methods

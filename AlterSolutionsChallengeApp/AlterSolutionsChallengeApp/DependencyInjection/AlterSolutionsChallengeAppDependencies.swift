@@ -43,6 +43,10 @@ struct AlterSolutionsChallengeAppDependencies {
         try container.register(type: URLRequestDispatcherProtocol.self) {
             return URLSessionDispatcher()
         }
+        
+        try container.register(type: AnalyticsProtocol.self) {
+            return AnalyticsManager()
+        }
     }
     
     private static func registerInternalDependencies() throws {
