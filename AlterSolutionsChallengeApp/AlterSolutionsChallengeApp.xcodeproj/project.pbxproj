@@ -98,6 +98,9 @@
 		0FCF94E926E0F7510092CC49 /* bulbassaur.json in Resources */ = {isa = PBXBuildFile; fileRef = 0FCF94A626DFCAC10092CC49 /* bulbassaur.json */; };
 		0FCF94EB26E0F90D0092CC49 /* FavoritesBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF94EA26E0F90D0092CC49 /* FavoritesBot.swift */; };
 		0FCF94ED26E0FAF90092CC49 /* URLSession+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF94EC26E0FAF90092CC49 /* URLSession+extensions.swift */; };
+		0FCF94EF26E1167A0092CC49 /* FavoritesManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF94EE26E1167A0092CC49 /* FavoritesManagerProtocol.swift */; };
+		0FCF94F326E117A30092CC49 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF94F226E117A30092CC49 /* FavoritesManager.swift */; };
+		0FCF94F826E11B860092CC49 /* FavoritesManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF94F726E11B860092CC49 /* FavoritesManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +211,9 @@
 		0FCF94E526E0F6BA0092CC49 /* AddAndRemoveFavoriteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAndRemoveFavoriteTests.swift; sourceTree = "<group>"; };
 		0FCF94EA26E0F90D0092CC49 /* FavoritesBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesBot.swift; sourceTree = "<group>"; };
 		0FCF94EC26E0FAF90092CC49 /* URLSession+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+extensions.swift"; sourceTree = "<group>"; };
+		0FCF94EE26E1167A0092CC49 /* FavoritesManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManagerProtocol.swift; sourceTree = "<group>"; };
+		0FCF94F226E117A30092CC49 /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
+		0FCF94F726E11B860092CC49 /* FavoritesManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +286,7 @@
 		0FCF938326D91C2D0092CC49 /* AlterSolutionsChallengeAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				0FCF94F526E11B770092CC49 /* Managers */,
 				0FCF94C026E050450092CC49 /* Networking */,
 				0FCF94AD26DFD99C0092CC49 /* Scenes */,
 				0FCF94A826DFCB1F0092CC49 /* Application */,
@@ -317,6 +324,7 @@
 		0FCF93A226D91EB80092CC49 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				0FCF94F026E117970092CC49 /* Managers */,
 				0FCF940426DC51AA0092CC49 /* Components */,
 				0FCF93F726DC343A0092CC49 /* Extensions */,
 				0FCF93F226DC32A40092CC49 /* Constants */,
@@ -432,6 +440,7 @@
 			isa = PBXGroup;
 			children = (
 				0FCF93DA26DC27E90092CC49 /* ImageDownloadProtocol.swift */,
+				0FCF94EE26E1167A0092CC49 /* FavoritesManagerProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -929,6 +938,38 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		0FCF94F026E117970092CC49 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				0FCF94F126E1179A0092CC49 /* Favorites */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		0FCF94F126E1179A0092CC49 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				0FCF94F226E117A30092CC49 /* FavoritesManager.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		0FCF94F526E11B770092CC49 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				0FCF94F626E11B7B0092CC49 /* Favorites */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		0FCF94F626E11B7B0092CC49 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				0FCF94F726E11B860092CC49 /* FavoritesManagerTests.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1128,6 +1169,7 @@
 				0FCF943626DEB2250092CC49 /* PokemonDetailRequest.swift in Sources */,
 				0FCF93B426D94FD20092CC49 /* PokemonDetailViewController.swift in Sources */,
 				0FCF940826DC58AB0092CC49 /* UIButton+extensions.swift in Sources */,
+				0FCF94F326E117A30092CC49 /* FavoritesManager.swift in Sources */,
 				0FCF941726DD1AE60092CC49 /* PokemonDetailViewModel.swift in Sources */,
 				0FCF93D126DAF9E70092CC49 /* BaseNavigationViewController.swift in Sources */,
 				0FCF93CB26DA7E520092CC49 /* AlterSolutionsChallengeAppDependencies.swift in Sources */,
@@ -1146,6 +1188,7 @@
 				0FCF940126DC3D310092CC49 /* UIView+extensions.swift in Sources */,
 				0FCF93BA26D950A90092CC49 /* PokemonDetail.swift in Sources */,
 				0FCF936E26D91C2B0092CC49 /* AppDelegate.swift in Sources */,
+				0FCF94EF26E1167A0092CC49 /* FavoritesManagerProtocol.swift in Sources */,
 				0FCF942526DE4F7E0092CC49 /* PokemonListService.swift in Sources */,
 				0FCF941526DD16AC0092CC49 /* UIImageView+extensions.swift in Sources */,
 				0FCF943F26DEB6D00092CC49 /* Notification+extensions.swift in Sources */,
@@ -1165,6 +1208,7 @@
 				0FCF94B826E03C160092CC49 /* PokemonDetailViewModelTests.swift in Sources */,
 				0FCF94B426E034E90092CC49 /* PokemonDetailCoordinatorTests.swift in Sources */,
 				0FCF94D526E0589C0092CC49 /* PokemonFavedListServiceTests.swift in Sources */,
+				0FCF94F826E11B860092CC49 /* FavoritesManagerTests.swift in Sources */,
 				0FCF94CB26E0517E0092CC49 /* ListUseCaseTests.swift in Sources */,
 				0FCF94B226DFD9B90092CC49 /* PokemonListCoordinatorTests.swift in Sources */,
 				0FCF94C726E050FA0092CC49 /* PokemonDetailServiceTests.swift in Sources */,

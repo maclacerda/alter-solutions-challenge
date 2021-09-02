@@ -231,8 +231,7 @@ extension PokemonListViewController: UICollectionViewDataSource, UICollectionVie
     
     // swiftlint:disable line_length
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard !viewModel.shouldShowFavorites,
-              kind == UICollectionView.elementKindSectionFooter,
+        guard kind == UICollectionView.elementKindSectionFooter,
               let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: LoadingFooterView.identifier, for: indexPath) as? LoadingFooterView else {
             return UICollectionReusableView()
         }
@@ -269,7 +268,7 @@ extension PokemonListViewController: UICollectionViewDataSource, UICollectionVie
 extension PokemonListViewController: PokemonListCellDelegate {
 
     func didTapFavedButton(_ isFaved: Bool, in index: Int) {
-        viewModel.updatePokemonFavedStatus(with: index, isFaved: isFaved)
+        viewModel.updatePokemonFavedStatus(with: index)
         
         // Register faved changed in analytics
         viewModel.sendEvent(with: index)

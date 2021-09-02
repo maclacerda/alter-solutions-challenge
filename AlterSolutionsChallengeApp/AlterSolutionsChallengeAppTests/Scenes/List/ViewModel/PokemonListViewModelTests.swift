@@ -51,12 +51,13 @@ class PokemonListViewModelTests: XCTestCase {
         let sut = PokemonListViewModel()
         sut.delegate = self
         
-        sut.pokemons.append(Pokemon(
-                                name: bulbassaurListResult.name,
-                                photo: bulbassaurListResult.url.extractPokemonIdentifier().makeAvatarURL(),
-                                isFaved: false)
+        sut.pokemons.append(
+            Pokemon(
+                name: bulbassaurListResult.name,
+                photo: bulbassaurListResult.url.extractPokemonIdentifier().makeAvatarURL()
+            )
         )
-        
+
         // When
         sut.showDetailsForPokemon(with: 0)
         
@@ -70,7 +71,12 @@ class PokemonListViewModelTests: XCTestCase {
         let pokemonListItem = PokemonResponse(name: "", url: "url")
         let sut = PokemonListViewModel()
         
-        sut.pokemons.append(Pokemon(name: pokemonListItem.name, photo: pokemonListItem.url, isFaved: false))
+        sut.pokemons.append(
+            Pokemon(
+                name: pokemonListItem.name,
+                photo: pokemonListItem.url
+            )
+        )
         
         // When
         sut.showDetailsForPokemon(with: 0)

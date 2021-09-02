@@ -39,6 +39,9 @@ final class PokemonListViewModel {
     
     @DependencyInject
     private var favedServices: PokemonFavedListServiceProtocol
+    
+    @DependencyInject
+    private var favoritesManager: FavoritesManagerProtocol
 
     // MARK: - API Calls
     
@@ -91,14 +94,19 @@ final class PokemonListViewModel {
         delegate?.showDetailsForPokemon(with: pokemonDetail)
     }
     
-    func updatePokemonFavedStatus(with index: Int, isFaved: Bool) {
-        var pokemon = pokemons[index]
-        pokemon.isFaved = isFaved
+    func updatePokemonFavedStatus(with index: Int) {
+        let pokemon = pokemons[index]
+
+        !isFaved(with: index) ? favoritesManager.faved(pokemon) : favoritesManager.unfaved(pokemon)
+    }
+    
+    func isFaved(with index: Int) -> Bool {
+        return favoritesManager.isFaved(pokemons[index].name)
     }
     
     func sendEvent(with index: Int) {
         let pokemon = pokemons[index]
-        let parameters = pokemon.buildAnalyticsParams()
+        let parameters = pokemon.buildAnalyticsParams(isFaved(with: index))
 
         analytics.sendEvent(with: AnalyticEvents.pokemonDataChanged.rawValue, parameters: parameters)
     }
@@ -117,8 +125,10 @@ final class PokemonListViewModel {
     
     private func makePokemonsData(with response: [PokemonResponse]) {
         pokemons.append(contentsOf: response.map {
-            // TODO: rever isFaved depois
-            return Pokemon(name: $0.name.capitalized, photo: $0.url.extractPokemonIdentifier().makeAvatarURL(), isFaved: false)
+            return Pokemon(
+                name: $0.name.capitalized,
+                photo: $0.url.extractPokemonIdentifier().makeAvatarURL()
+            )
         })
     }
     

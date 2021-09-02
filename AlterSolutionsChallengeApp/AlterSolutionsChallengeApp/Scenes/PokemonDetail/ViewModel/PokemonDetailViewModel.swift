@@ -32,6 +32,9 @@ final class PokemonDetailViewModel {
     @DependencyInject
     private var analytics: AnalyticsProtocol
     
+    @DependencyInject
+    private var favoritesManager: FavoritesManagerProtocol
+    
     // MARK: - Initializer
     
     init(with pokemonDetail: PokemonDetail) {
@@ -58,12 +61,23 @@ final class PokemonDetailViewModel {
             }).disposed(by: disposeBag)
     }
     
+    func updatePokemonFavedStatus() {
+        let pokemon = pokemonDetail.pokemon
+
+        !isFaved() ? favoritesManager.faved(pokemon) : favoritesManager.unfaved(pokemon)
+    }
+    
+    func isFaved() -> Bool {
+        return favoritesManager.isFaved(pokemonDetail.pokemon.name)
+    }
+    
     func notifyPokemonChanged() {
         delegate?.didNotifyFavedUnFavedPokemon()
     }
     
     func sendEvent() {
-        let parameters = pokemonDetail.buildAnalyticsParams()
+        let parameters = pokemonDetail.buildAnalyticsParams(isFaved())
+
         analytics.sendEvent(with: AnalyticEvents.pokemonDataChanged.rawValue, parameters: parameters)
     }
     

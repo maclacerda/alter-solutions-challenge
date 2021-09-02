@@ -47,6 +47,10 @@ struct AlterSolutionsChallengeAppDependencies {
         try container.register(type: AnalyticsProtocol.self) {
             return AnalyticsManager()
         }
+
+        try container.register(type: FavoritesManagerProtocol.self) {
+            return FavoritesManager.shared
+        }
     }
     
     private static func registerInternalDependencies() throws {

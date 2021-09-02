@@ -25,7 +25,7 @@ class ScenesFactoryTests: XCTestCase {
     }
     
     func testBuildDetailModule() {
-        let pokemonMock = Pokemon(name: "Name", photo: "Photo", isFaved: false)
+        let pokemonMock = Pokemon(name: "Name", photo: "Photo")
         let mock = PokemonDetail(pokemon: pokemonMock)
         
         // When

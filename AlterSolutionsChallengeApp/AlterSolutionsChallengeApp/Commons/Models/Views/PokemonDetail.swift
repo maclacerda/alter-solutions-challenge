@@ -14,18 +14,7 @@ struct PokemonDetail {
     
     // Specific detail data
     private(set) var specs: PokemonSpecs?
-    
-    // Computed properties
-    var isFaved: Bool {
-        get {
-            return pokemon.isFaved
-        }
-        
-        set {
-            pokemon.isFaved = newValue
-        }
-    }
-    
+
     var name: String {
         return pokemon.name
     }
@@ -36,8 +25,8 @@ struct PokemonDetail {
     
     // MARK: - Helpers
     
-    func buildAnalyticsParams() -> [String: Any] {
-        let generalInfo: [String: Any] = pokemon.buildAnalyticsParams()
+    func buildAnalyticsParams(_ isFaved: Bool) -> [String: Any] {
+        let generalInfo: [String: Any] = pokemon.buildAnalyticsParams(isFaved)
 
         guard let specs = self.specs else {
             return generalInfo

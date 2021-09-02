@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import AlterSolutionsChallengeCore
 @testable import AlterSolutionsChallengeApp
 
 class PokemonDetailViewModelTests: XCTestCase {
@@ -20,6 +21,8 @@ class PokemonDetailViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
+        AlterSolutionsChallengeAppDependencies.registerDependencies()
+        
         detailsCoordinatorSpy = PokemonDetailCoordinatorSpy()
         imageDownloader = ImageDownloadStub()
     }
@@ -28,24 +31,24 @@ class PokemonDetailViewModelTests: XCTestCase {
     
     func testActOnFavoritesButtonTouch_AddingFavorite() {
         // Given
-        let sut = PokemonDetailViewModel(with: PokemonDetail(pokemon: Pokemon(name: "bulbassaur", photo: "", isFaved: false)))
+        let sut = PokemonDetailViewModel(with: PokemonDetail(pokemon: Pokemon(name: "bulbassaur", photo: "")))
         
         // When
-        sut.pokemonDetail.isFaved = !sut.pokemonDetail.isFaved
+        sut.updatePokemonFavedStatus()
         
         // Then
-        XCTAssertTrue(sut.pokemonDetail.isFaved)
+        XCTAssertTrue(sut.isFaved())
     }
     
     func testActOnFavoritesButtonTouch_RemovingFavorite() {
         // Given
-        let sut = PokemonDetailViewModel(with: PokemonDetail(pokemon: Pokemon(name: "bulbassaur", photo: "", isFaved: true)))
+        let sut = PokemonDetailViewModel(with: PokemonDetail(pokemon: Pokemon(name: "bulbassaur", photo: "")))
         
         // When
-        sut.pokemonDetail.isFaved = !sut.pokemonDetail.isFaved
+        sut.updatePokemonFavedStatus()
         
         // Then
-        XCTAssertFalse(sut.pokemonDetail.isFaved)
+        XCTAssertFalse(sut.isFaved())
     }
 
 }

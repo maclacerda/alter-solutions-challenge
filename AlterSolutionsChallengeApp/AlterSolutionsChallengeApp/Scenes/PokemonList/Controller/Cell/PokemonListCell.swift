@@ -30,6 +30,9 @@ final class PokemonListCell: UICollectionViewCell, ViewCodeProtocol {
     
     @DependencyInject
     private var imageDownloader: ImageDownloaderProtocol
+
+    @DependencyInject
+    private var favoritesManager: FavoritesManagerProtocol
     
     // MARK: - UI
     
@@ -127,7 +130,7 @@ final class PokemonListCell: UICollectionViewCell, ViewCodeProtocol {
         self.index = index
 
         nameLabel.text = pokemon.name
-        favedButton.isSelected = pokemon.isFaved
+        favedButton.isSelected = favoritesManager.isFaved(pokemon.name)
 
         self.accessibilityIdentifier = pokemon.name
 

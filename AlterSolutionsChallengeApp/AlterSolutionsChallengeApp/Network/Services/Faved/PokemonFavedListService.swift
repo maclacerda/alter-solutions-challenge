@@ -6,11 +6,15 @@
 //
 
 import Foundation
+import AlterSolutionsChallengeCore
 
 final class PokemonFavedListService: PokemonFavedListServiceProtocol {
     
+    @DependencyInject
+    private var favoritesManager: FavoritesManagerProtocol
+
     func execute() -> [Pokemon] {
-        return []
+        return favoritesManager.favorites
     }
-    
+
 }

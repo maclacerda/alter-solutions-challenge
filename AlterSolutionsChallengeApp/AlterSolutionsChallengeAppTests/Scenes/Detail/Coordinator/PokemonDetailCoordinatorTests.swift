@@ -22,7 +22,7 @@ class PokemonDetailCoordinatorTests: XCTestCase {
         super.setUp()
 
         presenter = BaseNavigationViewController()
-        pokemon = PokemonDetail(pokemon: Pokemon(name: "Pokemon", photo: "Photo", isFaved: false))
+        pokemon = PokemonDetail(pokemon: Pokemon(name: "Pokemon", photo: "Photo"))
         sut = PokemonDetailCoordinatorSpy()
     }
     

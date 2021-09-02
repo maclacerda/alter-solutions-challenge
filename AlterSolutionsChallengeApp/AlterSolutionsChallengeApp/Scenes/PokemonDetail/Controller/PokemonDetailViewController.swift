@@ -183,7 +183,7 @@ class PokemonDetailViewController: BaseViewController, ViewCodeProtocol {
     }
     
     private func handlerFavorites() {
-        addCustomNavigationButton(on: .right, icon: viewModel.pokemonDetail.isFaved ? .favorites : .list, tintColor: .systemYellow, action: self)
+        addCustomNavigationButton(on: .right, icon: viewModel.isFaved() ? .favorites : .list, tintColor: .systemYellow, action: self)
     }
 
 }
@@ -191,7 +191,7 @@ class PokemonDetailViewController: BaseViewController, ViewCodeProtocol {
 extension PokemonDetailViewController: CustomButtonActionDelegate {
     
     func didTapCustomNavigationButton() {
-        viewModel.pokemonDetail.isFaved = !viewModel.pokemonDetail.isFaved
+        viewModel.updatePokemonFavedStatus()
         handlerFavorites()
 
         viewModel.notifyPokemonChanged()
