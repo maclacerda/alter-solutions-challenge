@@ -4,51 +4,51 @@
 [![codecov](https://codecov.io/gh/maclacerda/alter-solutions-challenge/branch/main/graph/badge.svg?token=YLQv28c0Hu)](https://codecov.io/gh/maclacerda/alter-solutions-challenge)
 [![CodeFactor](https://www.codefactor.io/repository/github/maclacerda/alter-solutions-challenge/badge?s=f17e6c4617801851359726ec8fd8cb6c73986b64)](https://www.codefactor.io/repository/github/maclacerda/alter-solutions-challenge)
 
-Aplicação para solução do desafio proposto pela Alter Solutions.
+Application to solve the challenge proposed by Alter Solutions.
 <br/><br/>
 
-# Arquitetura
+# Architecture
 
-A arquitetura escolhida para este projeto foi o MVVVM+C, Model View ViewModel com o pattern de Coordinator para realização da navegação entre as cenas.
+The architecture chosen for this project was the MVVVM+C, Model View ViewModel with the Coordinator pattern to perform the navigation between scenes.
 <br/><br/>
 
-# Construção das views
+# Construction of views
 
-Foi utilizado o padrão ViewCode para construção das telas.
+The ViewCode pattern was used to build the screens.
 <br/><br/>
 
-# Bibliotecas de terceiros
+# Third Party Libraries
 
-Para este desafio foram usadas as seguintes bibliotecas:
+For this challenge, the following libraries were used:
 
-* Kingfisher (versão 6.3.1)
-    - Download de imagens de forma assíncrona
+* Kingfisher (version 6.3.1)
+    - Downloading images asynchronously
 
-* RxSwift (versão 6.2.0)
-    - Controlar o fluxo de comunicação entre a Controller e a ViewModel
+* RxSwift (version 6.2.0)
+    - Control the flow of communication between Controller and ViewModel
 
-* Firebase (versão 8.6.1)
-    - Gerenciamento de eventos de analytics
+* Firebase (version 8.6.1)
+    - Analytics Event Management
 
 * AlterSolutionsChallengeCore (https://github.com/maclacerda/alter-solutions-challenge-core)
-    - Framework interno
+    - Internal Core Framework
 
 <br/><br/>
-# Gerenciador de Dependências
+# Dependency Manager
 
-Foi utilizado o SPM (Swift Package Manager) como gerenciador de dependências
+The SPM (Swift Package Manager) was used as a dependency manager
 <br/><br/>
 # Testes
 
-Utilizando o framework `XCTest` para realização dos testes unitários e de UI
+Using the `XCTest` framework to perform unit and UI testing
 <br/><br/>
 # Analytics
 
-Para o envio de eventos foi utlizado a plataforma do `Firebase` para ter acesso a dashboard de eventos trackeados acesse: https://analytics.google.com/analytics/web/?hl=pt#/p284946414/reports/home
+The `Firebase` platform was used to send events to access the dashboard of tracked events, go to: https://analytics.google.com/analytics/web/?hl=pt#/p284946414/reports/home
 
-Nota: O evento acontece ao favoritar ou desfavoritar um Pokemon
+*Note: The event happens when you favorite or disfavor a Pokemon*
 <br/><br/>
-# Requisitos do Desafio
+# Challenge Requirements
 <br/>
 
 - [x] Pagination<br/>
