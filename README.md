@@ -58,3 +58,13 @@ The `Firebase` platform was used to send events to access the dashboard of track
 - [x] UI Testing<br/>
 - [x] WebHook - Firebase see # Analytics<br/>
 - [x] Adapt UI to mobile orientation changes
+- [x] Dark Mode Support
+
+<br/><br/>
+# Future Features
+<br/>
+
+- [ ] Xcodegen / Tuist / Buck<br/>
+- [ ] Migrate UI to SwiftUI framework
+- [ ] Remove RxSwift and migrate do Combine Framework
+- [ ] Bump Target iOS Version

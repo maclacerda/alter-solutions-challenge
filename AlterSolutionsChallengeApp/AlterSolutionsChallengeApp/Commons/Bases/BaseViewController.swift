@@ -29,16 +29,40 @@ class BaseViewController: UIViewController {
             navigationController.statusBarStyle = statusBarStyle
         }
     }
-    
-    var navigationBarTintColor: UIColor = .black {
+
+    var titleColor: UIColor = .black {
         didSet {
-            navigationController?.navigationBar.barTintColor = navigationBarTintColor
+            navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: titleColor]
+            navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: titleColor]
         }
     }
-    
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        titleColor = traitCollection.userInterfaceStyle == .dark ? UIColor.white : UIColor.black
+        view.backgroundColor = traitCollection.userInterfaceStyle == .light ? UIColor.white : UIColor.black
+
+        if let customLeftButton = navigationItem.leftBarButtonItem?.customView {
+            customLeftButton.tintColor = titleColor
+        }
+
+        if let customRightButton = navigationItem.rightBarButtonItem?.customView {
+            customRightButton.tintColor = titleColor
+        }
+
+        navigationController?.navigationBar.tintColor = titleColor
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        titleColor = traitCollection.userInterfaceStyle == .dark ? UIColor.white : UIColor.black
+        view.backgroundColor = traitCollection.userInterfaceStyle == .light ? UIColor.white : UIColor.black
+        navigationController?.navigationBar.tintColor = traitCollection.userInterfaceStyle == .dark ? UIColor.white : UIColor.black
+    }
+
     // MARK: - Customization methods
     
-    func addCustomNavigationButton(on position: CustomButtonPosition, icon: CustomButtonIcon, tintColor: UIColor = .black, action: CustomButtonActionDelegate? = nil) {
+    func addCustomNavigationButton(on position: CustomButtonPosition, icon: CustomButtonIcon, tintColor: UIColor, action: CustomButtonActionDelegate? = nil) {
         var imageName: String
         
         switch icon {

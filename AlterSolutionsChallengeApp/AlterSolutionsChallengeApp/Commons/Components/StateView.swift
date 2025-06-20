@@ -15,7 +15,12 @@ final class StateView: UIView, ViewCodeProtocol {
     private var retryAction: (() -> Void)?
     
     // MARK: - UI
-    
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        button.setTitleColor(traitCollection.userInterfaceStyle == .dark ? UIColor.white : UIColor.black, for: .normal)
+    }
+
     private lazy var containerView: UIView = {
         let containerView = UIView(frame: .zero)
         
@@ -30,7 +35,7 @@ final class StateView: UIView, ViewCodeProtocol {
         
         iconView.translatesAutoresizingMaskIntoConstraints = false
         iconView.tintColor = .primaryColor
-        
+
         return iconView
     }()
     
@@ -49,7 +54,7 @@ final class StateView: UIView, ViewCodeProtocol {
         
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Retry", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(traitCollection.userInterfaceStyle == .dark ? UIColor.white : UIColor.black, for: .normal)
         button.roundCorners(with: .primaryColor)
         
         button.addTarget(self, action: #selector(didButtonTap), for: .touchUpInside)

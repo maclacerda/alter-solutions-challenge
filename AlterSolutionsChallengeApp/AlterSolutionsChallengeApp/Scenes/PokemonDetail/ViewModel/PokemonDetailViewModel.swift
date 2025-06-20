@@ -64,7 +64,11 @@ final class PokemonDetailViewModel {
     func updatePokemonFavedStatus() {
         let pokemon = pokemonDetail.pokemon
 
-        !isFaved() ? favoritesManager.faved(pokemon) : favoritesManager.unfaved(pokemon)
+        if !isFaved() {
+            favoritesManager.faved(pokemon)
+        } else {
+            favoritesManager.unfaved(pokemon)
+        }
     }
     
     func isFaved() -> Bool {

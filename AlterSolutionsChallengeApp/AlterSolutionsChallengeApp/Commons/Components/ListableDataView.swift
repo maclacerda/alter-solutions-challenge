@@ -43,9 +43,9 @@ final class ListableDataView: UIStackView, ViewCodeProtocol {
         titleLabel.text = title
         titleLabel.textAlignment = .center
         titleLabel.font = .boldSystemFont(ofSize: 18)
-        titleLabel.textColor = .white
+        titleLabel.textColor = traitCollection.userInterfaceStyle == .light ? .black : .white
         titleLabel.numberOfLines = 0
-        
+
         return titleLabel
     }()
     

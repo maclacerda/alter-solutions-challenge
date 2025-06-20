@@ -96,7 +96,6 @@ class PokemonListViewController: BaseViewController, ViewCodeProtocol {
     func setupConfigurations() {
         // Main View
         title = "Pokemons"
-        view.backgroundColor = .white
         view.accessibilityIdentifier = "list.views.root"
         
         // Loader
@@ -105,7 +104,7 @@ class PokemonListViewController: BaseViewController, ViewCodeProtocol {
         loadingView.startAnimating()
         
         // CollectionView
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
@@ -163,7 +162,12 @@ class PokemonListViewController: BaseViewController, ViewCodeProtocol {
     }
     
     private func handlerFavorites() {
-        addCustomNavigationButton(on: .right, icon: viewModel.shouldShowFavorites ? .favorites : .list, action: self)
+        addCustomNavigationButton(
+            on: .right,
+            icon: viewModel.shouldShowFavorites ? .favorites : .list,
+            tintColor: titleColor,
+            action: self
+        )
     }
     
     private func showFavorites() {
@@ -177,8 +181,6 @@ class PokemonListViewController: BaseViewController, ViewCodeProtocol {
     }
     
     @objc private func didHandlerNotificaation(_ notification: Notification) {
-        // If user not in faved list the reload isn't executed
-        guard viewModel.shouldShowFavorites else { return }
         fetchPokemons()
     }
     

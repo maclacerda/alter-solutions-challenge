@@ -41,7 +41,10 @@ final class PokemonDetailDescritionView: UIView, ViewCodeProtocol {
         photoView.image = .photoPlaceHolder
         photoView.contentMode = .scaleAspectFit
         photoView.clipsToBounds = true
-        photoView.addBorder()
+        photoView.backgroundColor = .white
+        photoView.addBorder(
+            traitCollection.userInterfaceStyle == .dark ? UIColor.white : UIColor.black
+        )
         
         photoView.widthAnchor.constraint(equalToConstant: 250).isActive = true
         photoView.heightAnchor.constraint(equalToConstant: 200).isActive = true
@@ -172,7 +175,7 @@ final class PokemonDetailDescritionView: UIView, ViewCodeProtocol {
     }
     
     func setupConfigurations() {
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .clear
     }
     
     // MARK: - Private methods

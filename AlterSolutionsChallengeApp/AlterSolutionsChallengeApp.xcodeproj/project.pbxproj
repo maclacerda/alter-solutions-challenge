@@ -3,14 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0FCF936E26D91C2B0092CC49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF936D26D91C2B0092CC49 /* AppDelegate.swift */; };
 		0FCF937726D91C2D0092CC49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FCF937626D91C2D0092CC49 /* Assets.xcassets */; };
 		0FCF937A26D91C2D0092CC49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FCF937826D91C2D0092CC49 /* LaunchScreen.storyboard */; };
-		0FCF939026D91C2D0092CC49 /* AlterSolutionsChallengeAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF938F26D91C2D0092CC49 /* AlterSolutionsChallengeAppUITests.swift */; };
 		0FCF939F26D91E2C0092CC49 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF939E26D91E2C0092CC49 /* AppCoordinator.swift */; };
 		0FCF93A126D91E5B0092CC49 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF93A026D91E5B0092CC49 /* Environment.swift */; };
 		0FCF93A526D91EC40092CC49 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FCF93A426D91EC40092CC49 /* Coordinator.swift */; };
@@ -129,7 +128,6 @@
 		0FCF938026D91C2D0092CC49 /* AlterSolutionsChallengeAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlterSolutionsChallengeAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FCF938626D91C2D0092CC49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FCF938B26D91C2D0092CC49 /* AlterSolutionsChallengeAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlterSolutionsChallengeAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0FCF938F26D91C2D0092CC49 /* AlterSolutionsChallengeAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlterSolutionsChallengeAppUITests.swift; sourceTree = "<group>"; };
 		0FCF939126D91C2D0092CC49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FCF939E26D91E2C0092CC49 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		0FCF93A026D91E5B0092CC49 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -303,7 +301,6 @@
 				0FCF94E426E0F6850092CC49 /* Tests */,
 				0FCF94DC26E0F47B0092CC49 /* Common */,
 				0FCF94D726E0F3E50092CC49 /* Scenes */,
-				0FCF938F26D91C2D0092CC49 /* AlterSolutionsChallengeAppUITests.swift */,
 				0FCF939126D91C2D0092CC49 /* Info.plist */,
 			);
 			path = AlterSolutionsChallengeAppUITests;
@@ -1229,7 +1226,6 @@
 				0FCF94ED26E0FAF90092CC49 /* URLSession+extensions.swift in Sources */,
 				0FCF94DF26E0F48F0092CC49 /* XCUIApplication+extensions.swift in Sources */,
 				0FCF94E626E0F6BA0092CC49 /* AddAndRemoveFavoriteTests.swift in Sources */,
-				0FCF939026D91C2D0092CC49 /* AlterSolutionsChallengeAppUITests.swift in Sources */,
 				0FCF94EB26E0F90D0092CC49 /* FavoritesBot.swift in Sources */,
 				0FCF94DB26E0F4090092CC49 /* ListBot.swift in Sources */,
 				0FCF94E726E0F7490092CC49 /* MockDataHelper.swift in Sources */,

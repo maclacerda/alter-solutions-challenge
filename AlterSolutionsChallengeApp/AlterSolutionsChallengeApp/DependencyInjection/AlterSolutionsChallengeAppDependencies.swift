@@ -10,7 +10,7 @@ import UIKit
 import AlterSolutionsChallengeCore
 
 struct AlterSolutionsChallengeAppDependencies {
-    
+
     // MARK: - Properties
     
     private static let container = DependencyContainer.shared

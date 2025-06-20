@@ -129,7 +129,6 @@ class PokemonDetailViewController: BaseViewController, ViewCodeProtocol {
     func setupConfigurations() {
         // Main View
         title = "Details"
-        view.backgroundColor = .white
         view.accessibilityIdentifier = "detail.views.root"
         
         // Loader
