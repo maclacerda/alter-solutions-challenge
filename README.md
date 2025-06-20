@@ -61,7 +61,7 @@ The `Firebase` platform was used to send events to access the dashboard of track
 - [x] Dark Mode Support
 
 <br/>
-# Future Features
+## Future Features
 <br/>
 
 - [ ] Xcodegen / Tuist / Buck<br/>
