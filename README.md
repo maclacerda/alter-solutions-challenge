@@ -38,7 +38,7 @@ For this challenge, the following libraries were used:
 
 The SPM (Swift Package Manager) was used as a dependency manager
 <br/><br/>
-# Testes
+# Tests
 
 Using the `XCTest` framework to perform unit and UI testing
 <br/><br/>
@@ -60,7 +60,7 @@ The `Firebase` platform was used to send events to access the dashboard of track
 - [x] Adapt UI to mobile orientation changes
 - [x] Dark Mode Support
 
-<br/><br/>
+<br/>
 # Future Features
 <br/>
 
